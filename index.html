@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dispositif TDAH DPL – Les Makaras</title>
+  <style>
+    :root{
+      --paper:#F4EFE6;--paper-2:#EBE3D4;--surface:#FFFFFF;
+      --ink:#1C3A40;--ink-2:#42514F;--muted:#6B7A7E;
+      --hair:#E3DCCD;--hair-2:#D7CDBB;--frame:#CFD9D9;
+      --green:#1F6F78;--green-d:#16515A;--green-l:#3A8A93;--green-soft:#E2EDEE;
+      --amber:#C77F2A;--amber-soft:#F7EEDC;
+      --slate:#16515A;--slate-d:#0F3C43;--slate-soft:#DCE7E8;
+      --terra:#B45F3A;--terra-d:#8c4727;--terra-soft:#F6E9E1;
+      --grey:#8A9A9C;
+      --shadow:0 1px 2px rgba(20,50,58,.05),0 10px 30px rgba(20,50,58,.06);
+      --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+      --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:var(--sans);font-size:16px;line-height:1.55;color:var(--ink);background:linear-gradient(180deg,var(--paper),var(--paper-2));-webkit-font-smoothing:antialiased}
+    strong{color:var(--ink)}
+
+    /* ---------- TOP BAR ---------- */
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(244,239,230,.92);-webkit-backdrop-filter:saturate(1.2) blur(8px);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--hair)}
+    .nav{max-width:980px;margin:auto;display:flex;flex-direction:column;gap:9px;align-items:center;padding:11px 20px 12px}
+    .brand{font-family:var(--serif);font-weight:600;font-size:1.08rem;letter-spacing:.3px;color:var(--green-d);text-align:center}
+    .links{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+    .links a{color:var(--ink-2);text-decoration:none;font-weight:500;font-size:.86rem;padding:7px 13px;border-radius:99px;background:var(--green-soft);transition:background .15s,color .15s}
+    .links a:hover{background:var(--green-soft);color:var(--green-d)}
+    .links a.active{background:#bfe0e0;color:var(--green-d);font-weight:700}
+
+    /* ---------- HEADER / BANNER ---------- */
+    header{max-width:980px;margin:24px auto 0;padding:0 20px;text-align:center}
+    .banner{width:100%;max-width:100%;height:auto;display:block;margin:0 auto;border-radius:16px;border:1px solid var(--frame);box-shadow:var(--shadow);background:#fff;object-fit:contain}
+    .intro{max-width:680px;margin:22px auto 0;font-size:1.02rem;color:var(--ink-2);text-align:center}
+    .cta-row{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+
+    /* ---------- BUTTONS ---------- */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:11px;padding:11px 18px;font-weight:600;font-size:.92rem;text-decoration:none;cursor:pointer;font-family:inherit;transition:transform .04s,box-shadow .15s,background .15s,border-color .15s}
+    .btn:hover{box-shadow:var(--shadow)}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{background:var(--green);color:#fff}
+    .btn.primary:hover{background:var(--green-d)}
+    .btn.secondary{background:var(--slate);color:#fff}
+    .btn.secondary:hover{background:var(--slate-d)}
+    .btn.light{background:var(--surface);color:var(--green-d);border-color:var(--hair-2)}
+    .btn.light:hover{border-color:var(--green)}
+
+    /* ---------- LAYOUT / SECTIONS ---------- */
+    main{max-width:980px;margin:0 auto;padding:20px 20px 64px}
+    .section{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;margin:30px 0;padding:26px 28px;border-radius:18px;background:var(--surface);border:1px solid var(--hair);box-shadow:var(--shadow);scroll-margin-top:74px}
+    .section.visible{opacity:1;transform:none}
+    .section h2{font-family:var(--serif);font-weight:600;margin:0 0 12px;color:var(--green-d);font-size:clamp(1.45rem,2.6vw,1.85rem);line-height:1.15}
+    .section>p{color:var(--ink-2);font-size:.97rem;margin:0 0 6px}
+    .kicker{display:inline-flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:700;font-size:.74rem;margin-bottom:8px}
+    #indications .kicker{color:var(--amber)}
+    #fonctionnement .kicker{color:var(--green-l)}
+    #demande .kicker{color:var(--terra)}
+
+    /* ---------- CARDS / GRIDS ---------- */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+    .card{background:var(--paper);border:1px solid var(--hair);border-radius:14px;padding:16px 18px}
+    .card h3{font-family:var(--sans);margin:0 0 7px;color:var(--green-d);font-size:1.02rem;font-weight:600}
+    .card p,.card li{font-size:.92rem;color:var(--ink-2)}
+    .diagnostic-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+
+    .pill{display:inline-flex;align-items:center;text-align:center;background:var(--surface);border:1px solid var(--hair-2);color:var(--green-d);border-radius:99px;padding:7px 13px;font-weight:600;font-size:.86rem;margin:3px}
+    .pill-row{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:12px}
+    .center{text-align:center}
+
+    .outcomes-title{font-family:var(--serif);font-weight:600;text-align:center;margin:24px 0 12px;color:var(--green-d);font-size:1.2rem}
+    .outcomes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .outcome{border-radius:14px;padding:16px;background:var(--paper);border:1px solid var(--hair);border-top:3px solid var(--hair-2);text-align:center}
+    .outcome h3{font-family:var(--sans);margin:0 0 7px;font-size:.98rem;font-weight:600;color:var(--green-d);text-align:center}
+    .outcome p{font-size:.88rem;color:var(--ink-2);margin:0;text-align:center}
+    .outcome.good{border-top-color:var(--green)}
+    .outcome.no{border-top-color:var(--grey)}
+    .outcome.wait{border-top-color:var(--amber)}
+    .diagnostic-grid .card{text-align:center}
+    #presentation .grid .card{text-align:center}
+    #indications .q-cards .card{text-align:center}
+    .q-cards .card{border-top:3px solid var(--amber)}
+
+    /* ---------- NIVEAUX DE SOINS ---------- */
+    .lines-pairs{display:grid;gap:12px;margin:18px auto;max-width:880px}
+    .line-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .line-item{background:var(--surface);border:1px solid var(--hair);border-radius:13px;padding:14px;text-align:center;font-size:.9rem;color:var(--ink-2)}
+    .line-item strong{display:block;color:var(--green-d);font-size:1.02rem;margin-bottom:4px}
+    .line-item.alt{background:var(--slate-soft);border-color:var(--slate-soft)}
+    .line-item.alt strong{color:var(--slate-d)}
+
+    /* ---------- DOUBLE ENTRÉE / VOIES ---------- */
+    .branch-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .branch{background:var(--surface);border:1px solid var(--hair);border-radius:14px;border-top:3px solid var(--green-l);padding:16px 18px}
+    .branch.diag{border-top-color:var(--green)}
+    .branch.thera{border-top-color:var(--amber)}
+    .branch h3{font-family:var(--sans);margin:0 0 7px;color:var(--green-d);font-size:1.02rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px}
+    .branch{text-align:center}
+    .branch p{font-size:.92rem;color:var(--ink-2);margin:0}
+    .branch .tag{display:inline-block;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:#fff;background:var(--green);border-radius:99px;padding:2px 9px}
+    .branch.thera .tag{background:var(--amber)}
+
+    /* ---------- NOTES / CALLOUTS ---------- */
+    .highlight-box{background:var(--green-soft);border:1px solid var(--hair);border-left:4px solid var(--green);border-radius:13px;padding:16px 18px;text-align:justify;margin-top:16px;font-size:.95rem;color:var(--ink-2)}
+    .green-note{background:var(--green-soft);border:1px solid var(--hair);border-radius:13px;padding:15px 17px;text-align:justify;margin-top:16px;font-size:.92rem;color:var(--ink-2)}
+    .warning{background:var(--amber-soft);border:1px solid var(--hair);border-left:4px solid var(--amber);border-radius:13px;padding:15px 18px;margin-top:16px;font-size:.93rem;color:var(--ink-2)}
+    .warning h3{font-family:var(--sans);margin:0 0 5px;color:var(--amber);font-size:1rem}
+    .danger{background:var(--terra-soft);border:1px solid var(--hair);border-left:4px solid var(--terra);border-radius:13px;padding:15px 18px;margin-top:16px;font-size:.93rem;color:var(--ink-2)}
+    .danger h3{font-family:var(--sans);margin:0 0 5px;color:var(--terra-d);font-size:1.02rem}
+    .danger p{margin:0;text-align:justify}
+
+    /* ---------- STEPS ---------- */
+    .steps{counter-reset:step;display:grid;gap:12px}
+    .step{position:relative;padding:15px 16px 15px 60px;background:var(--paper);border:1px solid var(--hair);border-radius:14px;font-size:.93rem;color:var(--ink-2)}
+    .step strong{color:var(--ink)}
+    .step:before{counter-increment:step;content:counter(step);position:absolute;left:15px;top:14px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--green-soft);color:var(--green-d);font-weight:700;font-size:1.05rem}
+
+    /* ---------- DOWNLOAD / LINK BOX ---------- */
+    .download-box{background:linear-gradient(180deg,var(--surface),var(--green-soft));border:1px solid var(--hair-2);border-radius:16px;padding:20px 22px;margin-top:24px}
+    .download-box h3{font-family:var(--sans);margin:0 0 8px;color:var(--green-d);font-size:1.08rem}
+    .download-box p{font-size:.93rem;color:var(--ink-2)}
+    .support-link-box{text-align:center;margin-top:16px}
+    .small{font-size:.85rem;color:var(--muted)}
+    .credit{font-size:.82rem;color:var(--muted);font-style:italic;text-align:center;margin-top:20px;padding-top:14px;border-top:1px dashed var(--hair-2)}
+
+    /* ---------- ACCESS BANNER / PAPER NOTE ---------- */
+    .access-banner{display:flex;gap:13px;align-items:flex-start;text-align:justify;background:var(--green-soft);border:1px solid var(--hair);border-radius:14px;padding:15px 17px;margin-top:18px;font-size:.93rem;color:var(--ink-2)}
+    .access-banner .lock{font-size:1.35rem;line-height:1.2}
+    .paper-note{margin-top:18px;padding-top:16px;border-top:1px dashed var(--hair-2);text-align:center;font-size:.9rem;color:var(--ink-2)}
+    .paper-dl{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+
+    /* ---------- FOOTER ---------- */
+    footer{padding:28px 20px;text-align:center;background:transparent;border-top:1px solid var(--hair);color:var(--muted);font-size:.88rem;margin-top:20px}
+    footer strong{font-family:var(--serif);color:var(--green-d);font-weight:600}
+
+    ul{margin:7px 0 0;padding-left:18px}
+    .card ul li{margin-bottom:5px}
+
+    /* ---------- focus ---------- */
+    a:focus-visible,.btn:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:8px}
+
+    /* ---------- MODAL MOT DE PASSE ---------- */
+    .modal-overlay{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(20,50,58,.45);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+    .modal-overlay[hidden]{display:none}
+    .modal{width:100%;max-width:410px;background:var(--surface);border:1px solid var(--frame);box-shadow:0 18px 50px rgba(20,50,58,.25);border-radius:18px;padding:24px 22px;text-align:center}
+    .modal h3{font-family:var(--serif);margin:0 0 8px;color:var(--green-d);font-size:1.25rem}
+    .pwd-input{width:100%;margin-top:12px;padding:11px 13px;font-size:1rem;border:1px solid var(--hair-2);border-radius:11px;font-family:inherit;background:var(--paper);color:var(--ink)}
+    .pwd-input:focus{border-color:var(--green);outline:none}
+    .pwd-error{color:var(--terra-d);font-weight:600;font-size:.9rem;margin:11px 0 0}
+    .modal-actions{display:flex;gap:9px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+
+    /* ---------- RESPONSIVE ---------- */
+    @media(max-width:820px){
+      .grid,.outcomes-grid,.diagnostic-grid,.branch-grid{grid-template-columns:1fr}
+      .nav{flex-direction:column;align-items:stretch;gap:6px;padding:8px 14px}
+      .brand{text-align:center}
+      .links{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;gap:6px;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+      .links::-webkit-scrollbar{display:none}
+      .links a{white-space:nowrap;background:var(--green-soft)}
+      .section{padding:20px}
+      .step{padding-left:56px}
+      .access-banner{flex-direction:column}
+      .line-item{padding:11px 9px;font-size:.8rem}
+      .line-item strong{font-size:.92rem}
+    }
+    @media(prefers-reduced-motion:reduce){.section{opacity:1;transform:none;transition:none}.btn,.links a{transition:none}*{scroll-behavior:auto}}
+
+  </style>
+  <noscript><style>.section{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+  <div class="topbar"><div class="nav"><div class="brand">LES MAKARAS · TDAH DPL</div><nav class="links"><a href="#diagnostic-adulte">Diagnostic adulte</a><a href="#presentation">Le dispositif</a><a href="#indications">Quand le proposer</a><a href="#fonctionnement">Déroulé</a><a href="#demande">Faire une demande</a><a href="#support">Accéder au support</a></nav></div></div>
+  <header>
+    <img class="banner" src="BanierePresentationTDAH.png" alt="Unité Mobile Autisme Adulte - Diagnostic TDAH de l'adulte - Dispositif de première ligne">
+    <p class="intro"><strong>Un accompagnement structuré pour les médecins de première ligne</strong><br>(généralistes et psychiatres), dans le repérage, le diagnostic et la prise en charge du TDAH de l’adulte.</p>
+    <div class="cta-row"><a class="btn primary" href="#demande">Faire une demande</a><a class="btn secondary" href="#support">Accéder au support du DPL</a></div>
+  </header>
+  <main>
+    <section id="diagnostic-adulte" class="section"><div class="kicker">🧭 Rationnel du DPL</div><h2>Le diagnostic de TDAH chez l’adulte</h2><p>Le TDAH concerne environ <strong>3 % des adultes</strong>. Sa filière de soins est en cours de structuration dans le cadre de la <strong>Stratégie nationale pour les troubles du neurodéveloppement (2023-2027)</strong>, animée par les <strong>Centres Ressources TDAH (CR TDAH)</strong> labellisés par les ARS et <strong>graduée en deux niveaux</strong>.</p>
+      <div class="lines-pairs">
+        <div class="line-pair"><div class="line-item"><strong>Premier niveau</strong>Professionnels de proximité : médecins généralistes, psychiatres, et autres professionnels de santé</div><div class="line-item alt"><strong>Repérage &amp; orientation</strong>Identifier les signes évocateurs d’un TDAH et orienter</div></div>
+        <div class="line-pair"><div class="line-item"><strong>Second niveau</strong>Médecins formés (libéraux et hospitaliers) et équipes spécialisées du territoire</div><div class="line-item alt"><strong>Diagnostic &amp; suivi</strong>Poser le diagnostic et assurer le suivi des situations simples comme complexes</div></div>
+      </div>
+      <div class="green-note"><strong>Un recours gradué pour les situations complexes.</strong> Au sein du second niveau, plusieurs ressources existent avant le CR TDAH : des <strong>équipes, souvent libérales, réalisant des bilans spécialisés</strong> et des <strong>professionnels spécifiquement formés au TDAH</strong>. Les <strong>Centres Ressources TDAH</strong> se situent un cran au-dessus : pivots de la filière, ils prennent en charge les situations les plus complexes et animent le réseau.</div>
+      <div class="highlight-box"><p><strong>Le diagnostic de TDAH peut être posé par tout médecin formé au diagnostic et au traitement du TDAH</strong> (recommandations HAS, 2024), quel que soit son lieu d’exercice.<br>Il n’est pas réservé aux centres experts ni aux spécialistes hospitaliers.</p></div>
+      <div class="diagnostic-grid"><div class="card"><h3>Des bilans spécialisés pour les situations complexes</h3><p>Les équipes spécialisées et les CR TDAH réalisent des évaluations approfondies, utiles lorsque la situation est complexe, que les diagnostics différentiels sont nombreux, ou qu’il existe un doute important — notamment en cas de comorbidités multiples.</p></div><div class="card"><h3>Les bilans pluridisciplinaires ne sont pas toujours indispensables</h3><p>Comme pour d’autres diagnostics psychiatriques, par exemple le trouble bipolaire ou les troubles du spectre schizophrénique, le diagnostic peut reposer sur une évaluation clinique rigoureuse, sans recours systématique à un centre expert.</p></div></div>
+      <p class="center" style="margin-top:18px">C’est dans cette logique qu’a été créé le <strong>dispositif TDAH DPL</strong> : proposer un appui structuré aux médecins de première ligne lorsque la situation paraît compatible avec un diagnostic — ou une prise en charge — du TDAH de l’adulte.</p></section>
+
+    <section id="presentation" class="section"><div class="kicker">🧩 Dispositif TDAH DPL</div><h2>Qu’est-ce que le dispositif DPL ?</h2><p>Le dispositif TDAH DPL, pour <strong>Diagnostic de Première Ligne</strong>, s’adresse aux situations où un TDAH de l’adulte est <strong>suspecté</strong>, ou <strong>déjà diagnostiqué</strong> et nécessitant un ajustement thérapeutique.</p><div class="grid"><div class="card"><h3>👥 Pour qui ?</h3><p>Médecins généralistes et psychiatres, libéraux comme hospitaliers.</p></div><div class="card"><h3>🎯 Pourquoi ?</h3><p>Réduire l’errance diagnostique, raccourcir le parcours quand la situation est claire, sécuriser la stratégie thérapeutique, et réserver le recours spécialisé aux situations complexes.</p></div><div class="card"><h3>🤝 Comment ?</h3><p>Un appui méthodologique des Makaras, avec un support structuré et une téléexpertise avec le praticien.</p></div></div></section>
+
+    <section id="indications" class="section"><div class="kicker">🎯 Orientation</div><h2>Quand proposer le DPL ?</h2><p>Le DPL peut être proposé lorsque la demande adressée aux Makaras fait apparaître une situation compatible avec une intervention de première ligne.</p>
+      <div class="highlight-box"><p><strong>Une double entrée propre au TDAH.</strong> La demande peut être <strong>diagnostique</strong> (un TDAH est suspecté, à confirmer ou à écarter) ou <strong>thérapeutique</strong> chez un patient déjà diagnostiqué : optimisation, échec ou intolérance du traitement.</p></div>
+      <div class="grid q-cards" style="margin-top:16px"><div class="card"><h3>Une question diagnostique</h3><p>Que le tableau paraisse très évocateur ou au contraire peu probable, le DPL apporte un appui structuré pour <strong>confirmer ou écarter</strong> le diagnostic de façon argumentée.</p></div><div class="card"><h3>Une question thérapeutique</h3><p>Chez un patient <strong>déjà diagnostiqué officiellement</strong> (et non par auto-diagnostic), pour optimiser le traitement, ou face à un échec ou une intolérance.</p></div><div class="card"><h3>Compatible avec votre activité</h3><p>Le médecin accepte de compléter les documents, d’échanger avec l’UMAA, et de réaliser l’annonce diagnostique ou d’assurer le suivi.</p></div></div>
+      <div class="danger center"><h3>Quand le DPL n’est pas adapté : la forte désirabilité du diagnostic</h3><p>Côté <strong>diagnostique</strong>, lorsque le patient semble très attaché à obtenir absolument un diagnostic de TDAH, au point que l’évaluation risque d’être biaisée, le DPL n’est généralement pas adapté. Une évaluation spécialisée est alors préférable : elle permet une analyse plus approfondie des diagnostics différentiels et des comorbidités, et des outils psychométriques sont souvent nécessaires pour répondre à la question.</p></div></section>
+
+    <section id="fonctionnement" class="section"><div class="kicker">🔄 Parcours</div><h2>Comment se déroule le dispositif ?</h2><p>Tout part de la <strong>lecture de la demande</strong> par un médecin de l’UMAA, qui décide si le DPL-TDAH est applicable et <strong>répond au médecin adresseur</strong>.</p>
+      <div class="steps"><div class="step"><strong>Réception et lecture de la demande</strong><br>L’UMAA examine la demande : partie patient, partie médicale, et les auto-questionnaires (ASRS, WURS) lorsqu’ils sont requis. Une réponse est adressée au médecin, indiquant si la situation relève du DPL-TDAH.</div><div class="step"><strong>Orientation vers l’une des deux voies</strong><br>Selon la nature de la demande — diagnostique ou thérapeutique — le parcours diffère ensuite.</div></div>
+      <div class="branch-grid"><div class="branch diag"><span class="tag">Voie diagnostique</span><h3 style="margin-top:8px">🧠 Support clinique puis téléexpertise</h3><p>Le praticien complète le support clinique structuré (comme dans le DPL-TSA), puis échange avec l’équipe en téléexpertise.</p></div><div class="branch thera"><span class="tag">Voie thérapeutique</span><h3 style="margin-top:8px">💊 Téléexpertise directe</h3><p>Après lecture de la demande, une téléexpertise est programmée directement avec le médecin pour discuter du traitement.</p></div></div>
+      <div class="green-note"><strong>La téléexpertise</strong> se fait par téléphone ou en visio, pour une durée maximale de <strong>30 minutes</strong>. Elle peut être renouvelée une fois si besoin.</div>
+      <h3 class="outcomes-title">Issues possibles d’une demande diagnostique</h3><div class="outcomes-grid"><div class="outcome good"><h3>Diagnostic confirmé</h3><p>Annonce faite par le praticien, qui assure la mise en route du traitement et le suivi, avec orientation selon les besoins.</p></div><div class="outcome no"><h3>Diagnostic non retenu</h3><p>Annonce faite par le praticien. Le patient est considéré comme non repéré pour un TDAH dans ce cadre.</p></div><div class="outcome wait"><h3>Éléments insuffisants</h3><p>Un second entretien ou des outils complémentaires peuvent être proposés pour affiner l’analyse.</p></div><div class="outcome wait"><h3>Situation trop complexe</h3><p>Réorientation vers un service compétent pour un bilan spécialisé : CR TDAH ou toute autre équipe du réseau plus à même de réaliser un bilan pluridisciplinaire spécialisé.</p></div></div>
+      <div class="green-note"><strong>Côté thérapeutique</strong>, l’issue prend la forme d’un <strong>conseil ou d’un ajustement thérapeutique</strong> transmis au médecin via la téléexpertise. L’UMAA ne rédige pas d’ordonnance et ne reçoit pas le patient pour ce motif : la prescription reste assurée par le médecin adresseur.</div>
+      <div class="support-link-box"><a class="btn light" href="#support">Accéder au support du DPL</a></div></section>
+
+    <section id="demande" class="section"><div class="kicker">📋 Première étape</div><h2>Comment faire une demande ?</h2><p>La demande se fait depuis la <strong>page dédiée au DPL-TDAH</strong>, qui regroupe tout le nécessaire : formulaire à remplir en ligne, ou versions imprimables à télécharger.</p>
+      <div class="steps"><div class="step"><strong>Accéder à la page de demande</strong><br>Sur la page dédiée, la demande se remplit <strong>en ligne</strong> ou se <strong>télécharge (Word ou PDF)</strong> pour être complétée à la main.</div><div class="step"><strong>Compléter le dossier</strong><br>Une <strong>partie patient</strong> et une <strong>partie médicale</strong>, toutes deux nécessaires. Pour une <strong>question diagnostique</strong>, deux auto-questionnaires (<strong>ASRS</strong> et <strong>WURS</strong>) sont également à compléter ; tout est expliqué dans le dossier.</div><div class="step"><strong>Envoyer le dossier</strong><br>Dossier complet à <strong>UMAA@ch-valvert.fr</strong>. Un médecin de l’UMAA l’étudie, décide si le DPL-TDAH est indiqué et recontacte le médecin adresseur.</div></div>
+      <div class="download-box center" style="margin-top:22px"><h3>📝 Accéder au formulaire de demande DPL-TDAH</h3><p>Remplissez la demande en ligne ou téléchargez les formulaires imprimables depuis la page dédiée.</p><div class="support-link-box"><a class="btn primary" href="https://valvertmakaras.github.io/DPL-TDAH-demande/#accueil" target="_blank" rel="noopener">Ouvrir la page de demande</a></div></div></section>
+
+    <section id="support" class="section center"><div class="kicker">🔐 Accès réservé · après validation</div><h2>Accéder au support du DPL</h2><p>Le support n’est utilisable que lorsque l’indication du DPL-TDAH a été retenue par l’UMAA. Il sert à structurer les entretiens cliniques (voie diagnostique) puis à préparer la téléexpertise avec l’équipe de coordination.</p>
+      <div class="access-banner"><div class="lock">🔒</div><div><strong>Comment obtenir l’accès ?</strong><br>Le téléchargement est protégé par un mot de passe. Ce mot de passe vous est communiqué par l’équipe de l’UMAA <strong>après étude de votre demande et validation de l’indication du dispositif</strong>. Sans cette validation, le support ne peut pas être utilisé.</div></div>
+
+      <h3 class="outcomes-title">À quoi sert ce support ?</h3>
+      <div class="grid" style="text-align:left">
+        <div class="card"><h3>🧠 Un appui, pas un test</h3><p>C’est un <strong>appui au raisonnement clinique</strong> : aucun outil ni score ne pose à lui seul le diagnostic. Il aide à objectiver, lors d’entretiens structurés, les éléments compatibles avec un TDAH de l’adulte, en cherchant à limiter les faux positifs. Les auto-questionnaires (ASRS, WURS) gardent une part de subjectivité et demandent toujours une lecture clinique.</p></div>
+        <div class="card"><h3>🧱 De quoi est-il composé ?</h3><ul><li>Un préambule <strong>« Drapeaux rouges »</strong> : signes évocateurs par domaine, formes inattentives et profils féminins, critères de complexité et pièges fréquents — dont la <strong>vigilance différentielle bipolaire / TDAH</strong>.</li><li><strong>Partie 1 — Exploration clinique guidée</strong> : entretien structuré avec le patient, inspiré de la DIVA-5 (inattention et hyperactivité/impulsivité, à l’enfance et à l’âge adulte, retentissement fonctionnel).</li><li><strong>Partie 2 — Témoignage d’un proche</strong> : éléments développementaux (avant l’âge de 12 ans) recueillis auprès d’un tiers. L’idéal est de pouvoir <strong>interroger directement le proche</strong> ; à défaut, le questionnaire peut lui être transmis, le plus souvent par l’intermédiaire du patient.</li><li>Sections complémentaires : <strong>grille d’observation</strong>, <strong>lecture des critères DSM-5-TR</strong> et <strong>diagnostics différentiels et comorbidités</strong>.</li></ul></div>
+        <div class="card"><h3>⏱️ Combien de temps ?</h3><p>L’exploration clinique se déroule en général sur <strong>un entretien d’environ 30 minutes</strong>, parfois davantage selon la complexité de la situation ou la connaissance préalable du patient. Le témoignage d’un proche s’ajoute dès qu’un proche est disponible.</p></div>
+      </div>
+
+      <div class="download-box"><h3>💻 Support interactif — à utiliser sur ordinateur</h3><p>Une page web à ouvrir dans le navigateur de l’ordinateur, qui fonctionne <strong>en local, sans connexion internet</strong>. Ce support interactif vous permet de compléter, au fil des séances, les dossiers de <strong>plusieurs patients en parallèle</strong>. Il génère un PDF de synthèse et permet d’envoyer les réponses à l’équipe.</p><div class="support-link-box"><button class="btn secondary dl-protected" type="button" id="dpl-download-btn" data-dl-file="TDAH%20DPL%20Support%20-%20Les%20Makaras.zip" data-dl-name="TDAH DPL Support - Les Makaras.zip" data-dl-note="Le téléchargement est un fichier ZIP nommé <strong>« TDAH DPL Support - Les Makaras »</strong> : décompressez-le après téléchargement pour obtenir le dossier du support.">🔒 Télécharger le support TDAH-DPL</button><p class="small" style="margin-top:8px">Mot de passe requis · téléchargement d’un fichier ZIP à décompresser</p></div><div class="paper-note"><strong>🖨️ Une version papier existe également.</strong> Il s’agit du support clinique à imprimer, pour les praticiens qui préfèrent le compléter à la main pendant la consultation plutôt que de saisir directement sur l’ordinateur avec le patient.<div class="paper-dl"><button class="btn light dl-protected" type="button" data-dl-file="TDAH_DPL_-_Support_imprimable_-_Les_Makaras.pdf" data-dl-name="TDAH_DPL_-_Support_imprimable_-_Les_Makaras.pdf" data-dl-note="Le téléchargement est le support clinique imprimable au format <strong>PDF</strong>.">🔒 Télécharger le support (PDF)</button><button class="btn light dl-protected" type="button" data-dl-file="TDAH_DPL_-_Support_imprimable_-_Les_Makaras.docx" data-dl-name="TDAH_DPL_-_Support_imprimable_-_Les_Makaras.docx" data-dl-note="Le téléchargement est le support clinique imprimable au format <strong>Word (.docx)</strong>.">🔒 Télécharger le support (Word)</button></div><p class="small" style="margin-top:10px">Mot de passe requis</p></div></div>
+
+
+      <h4 class="outcomes-title" style="font-size:1.2rem;margin-bottom:6px">Mode d’emploi du support interactif</h4>
+      <div class="steps" style="margin-top:8px;text-align:left">
+        <div class="step"><strong>Télécharger et décompresser le support</strong><br>Saisissez le mot de passe communiqué par l’UMAA, puis téléchargez le fichier ZIP <strong>« TDAH DPL Support - Les Makaras »</strong>. Une fois téléchargé, décompressez-le : vous obtiendrez le dossier contenant le support interactif (à ouvrir dans le navigateur).</div>
+        <div class="step"><strong>Ouvrir avec le bon navigateur</strong><br>Utilisez de préférence <strong>Google Chrome</strong> ou <strong>Microsoft Edge</strong>, qui permettent d’enregistrer directement dans votre fichier de sauvegarde. Évitez Internet Explorer.</div>
+        <div class="step"><strong>Choisir un fichier de sauvegarde</strong><br>À la première ouverture, le support vous invite à choisir un fichier de sauvegarde (« .json ») sur votre ordinateur. Vos dossiers y sont conservés : ils vivent sur votre poste, dans un fichier que vous maîtrisez entièrement, sans aucun serveur.</div>
+        <div class="step"><strong>Enregistrer votre progression au fil de l’eau</strong><br>Pendant la consultation, cliquez régulièrement sur <strong>« 💾 Enregistrer la progression »</strong> pour sauvegarder vos dossiers dans ce fichier.</div>
+        <div class="step"><strong>Reprendre un dossier à la réouverture</strong><br>À la réouverture du support, cliquez sur <strong>« 📂 Restaurer une sauvegarde »</strong> et sélectionnez votre fichier « .json » pour retrouver vos dossiers et reprendre là où vous en étiez — y compris sur un autre ordinateur.</div>
+      </div>
+
+      <div class="warning center"><h3>Point important</h3><p>Le fichier contient des données cliniques. Il doit rester sur un ordinateur sécurisé. Aucune donnée n’est stockée sur internet : les informations restent localement sur l’ordinateur où le fichier est utilisé.</p></div>
+
+      <p class="credit">Support élaboré par les Dr Clémentine Doussy, Fanny Cviklinski et Raphaël Curti dans le cadre du Dispositif de Première Ligne, avec l’appui de l’équipe de l’Unité Mobile Autisme Adultes Les Makaras – CH Valvert.</p>
+    </section>
+  </main>
+  <footer><strong>LES MAKARAS – Unité Mobile Autisme Adulte</strong><br>04.91.87.68.73 · 78 boulevard des Libérateurs, 13011 Marseille · UMAA@ch-valvert.fr</footer>
+
+  <!-- Fenêtre mot de passe -->
+  <div class="modal-overlay" id="pwd-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pwd-title" aria-describedby="pwd-desc">
+      <h3 id="pwd-title">Accès protégé</h3>
+      <p id="pwd-desc" class="small">Saisissez le mot de passe communiqué par l’équipe de l’UMAA après validation de l’indication du DPL.</p>
+      <input type="text" id="pwd-input" class="pwd-input" placeholder="Mot de passe" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Mot de passe">
+      <p class="pwd-error" id="pwd-error" role="alert" hidden>Mot de passe incorrect. Vérifiez auprès de l’UMAA.</p>
+      <div class="modal-actions">
+        <button class="btn light" type="button" id="pwd-cancel">Annuler</button>
+        <button class="btn primary" type="button" id="pwd-submit">Valider et télécharger</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Révélation des sections au défilement */
+    const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.12});
+    document.querySelectorAll('.section').forEach(s=>obs.observe(s));
+
+    /* Surlignage du lien de navigation actif (scroll-spy) */
+    (function(){
+      const links=[...document.querySelectorAll('.links a')];
+      const map={};links.forEach(a=>map[a.getAttribute('href').slice(1)]=a);
+      const spy=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.remove('active'));const a=map[e.target.id];if(a)a.classList.add('active');}})},{rootMargin:'-45% 0px -50% 0px'});
+      document.querySelectorAll('main section[id]').forEach(s=>spy.observe(s));
+    })();
+
+    /* Téléchargements protégés par mot de passe (support web + supports imprimables) */
+    (function(){
+      const PASSWORD="MakarasTDAH26";
+      const DESC_BASE="Saisissez le mot de passe communiqué par l’équipe de l’UMAA après validation de l’indication du DPL.";
+      const modal=document.getElementById('pwd-modal');
+      const input=document.getElementById('pwd-input');
+      const err=document.getElementById('pwd-error');
+      const desc=document.getElementById('pwd-desc');
+      const cancel=document.getElementById('pwd-cancel');
+      const submit=document.getElementById('pwd-submit');
+      let lastFocus=null,pending=null;
+      function open(btn){pending={file:btn.getAttribute('data-dl-file'),name:btn.getAttribute('data-dl-name')};const note=btn.getAttribute('data-dl-note');if(desc)desc.innerHTML=DESC_BASE+(note?'<br><br>'+note:'');lastFocus=document.activeElement;modal.hidden=false;err.hidden=true;input.value='';setTimeout(()=>input.focus(),30);document.addEventListener('keydown',onKey);}
+      function close(){modal.hidden=true;document.removeEventListener('keydown',onKey);if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+      function onKey(e){if(e.key==='Escape')close();else if(e.key==='Enter'&&document.activeElement===input){e.preventDefault();check();}}
+      function download(){if(!pending||!pending.file)return;const a=document.createElement('a');a.href=pending.file;a.setAttribute('download',pending.name||'');document.body.appendChild(a);a.click();a.remove();}
+      function check(){if(input.value===PASSWORD){close();download();}else{err.hidden=false;input.focus();input.select();}}
+      document.querySelectorAll('.dl-protected').forEach(b=>b.addEventListener('click',()=>open(b)));
+      if(cancel)cancel.addEventListener('click',close);
+      if(submit)submit.addEventListener('click',check);
+      if(modal)modal.addEventListener('click',e=>{if(e.target===modal)close();});
+    })();
+  </script>
+</body>
+</html>
